@@ -33,7 +33,13 @@ app.get('/users/:id', (request, response) => {
   if (!isUser) {
     return response.status(404).json({ error: 'User does not exist' });
   }
-  return response.json(isUser);
+  return response.json({
+    id: isUser.id,
+    name: isUser.name,
+    cpf: isUser.cpf,
+    email: isUser.email,
+    age: isUser.age,
+  });
 });
 
 app.get('/users', (request, response) => {
