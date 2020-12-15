@@ -46,7 +46,18 @@ app.get('/users', (request, response) => {
   if (users.length < 1) {
     return response.status(404).json({ error: `There are no users` });
   }
-  return response.json(users);
+  //Cria um novo array com um novo objeto criado dentro do Map()
+  const newUsers = users.map((user) => {
+    const newUser = {
+      id: user.id,
+      name: user.name,
+      age: user.age,
+      cpf: user.cpf,
+    };
+    return newUser;
+  });
+
+  return response.json(newUsers);
 });
 
 app.put('/users/:id', (request, response) => {
@@ -224,6 +235,6 @@ app.delete('/users/:id/transactions/:idT', (request, response) => {
   }
 });
 
-app.listen(3333, () => {
+app.listen(3031, () => {
   console.log('Working');
 });
