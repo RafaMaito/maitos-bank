@@ -1,16 +1,11 @@
-import Transaction from '../classes/Transaction';
 import { users } from './UserController';
+import Transaction from '../classes/Transaction';
 
 class TransactionController {
     index(request, response) {
         const { id } = request.params;
 
         const isUser = users.find(user => user.id === id);
-        if (!isUser) {
-            return response
-                .status(404)
-                .json({ message: 'User does not exist' });
-        }
         if (isUser.transactions.length < 1) {
             return response
                 .status(404)
@@ -41,18 +36,6 @@ class TransactionController {
     store(request, response) {
         const { id } = request.params;
         const { title, value, type } = request.body;
-        console.log(users);
-        if (!title || !value || !type) {
-            return response
-                .status(409)
-                .json({ message: 'Please, fill all fields' });
-        }
-
-        if (type !== 'income' && type !== 'outcome') {
-            return response
-                .status(404)
-                .json({ message: 'This operation does not exist' });
-        }
 
         const isUser = users.find(user => user.id === id);
         if (!isUser) {
@@ -90,18 +73,6 @@ class TransactionController {
     update(request, response) {
         const { id, idT } = request.params;
         const { title, value, type } = request.body;
-
-        if (!title || !value || !type) {
-            return response
-                .status(409)
-                .json({ message: 'Please, fill all fields' });
-        }
-
-        if (type !== 'income' && type !== 'outcome') {
-            return response
-                .status(404)
-                .json({ message: 'This operation does not exist' });
-        }
 
         const isUser = users.find(user => user.id === id);
         if (!isUser) {

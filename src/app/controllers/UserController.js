@@ -43,9 +43,6 @@ class UserController {
         const { id } = request.params;
 
         const isUser = users.find(user => user.id === id);
-        if (!isUser) {
-            return response.status(404).json({ error: 'User does not exist' });
-        }
         return response.json({
             id: isUser.id,
             name: isUser.name,
@@ -59,11 +56,6 @@ class UserController {
         const { id } = request.params;
         const { name, age, email, cpf } = request.body;
 
-        if (!name || !age || !cpf || !email) {
-            return response
-                .status(409)
-                .json({ message: 'Please, fill all fields' });
-        }
         const newUser = users.find(user => user.id === id);
 
         if (!newUser) {
