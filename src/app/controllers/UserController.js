@@ -56,19 +56,14 @@ class UserController {
         const { id } = request.params;
         const { name, age, email, cpf } = request.body;
 
-        const newUser = users.find(user => user.id === id);
+        const isUser = users.find(user => user.id === id);
 
-        if (!newUser) {
-            return response
-                .status(404)
-                .json({ message: 'User does not exist' });
-        }
-        newUser.name = name;
-        newUser.age = age;
-        newUser.cpf = cpf;
-        newUser.email = email;
+        isUser.name = name;
+        isUser.age = age;
+        isUser.cpf = cpf;
+        isUser.email = email;
 
-        return response.json(newUser);
+        return response.json(isUser);
     }
 
     delete(request, response) {

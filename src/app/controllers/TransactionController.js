@@ -38,11 +38,6 @@ class TransactionController {
         const { title, value, type } = request.body;
 
         const isUser = users.find(user => user.id === id);
-        if (!isUser) {
-            return response
-                .status(404)
-                .json({ message: 'User does not exist' });
-        }
 
         const transaction = new Transaction(title, value, type);
         isUser.transactions.push(transaction);
@@ -51,22 +46,13 @@ class TransactionController {
 
     show(request, response) {
         const { id, idT } = request.params;
-        const isUser = users.find(user => user.id === id);
 
-        if (!isUser) {
-            return response
-                .status(404)
-                .json({ message: 'User does not exist' });
-        }
+        const isUser = users.find(user => user.id === id);
 
         const isTransaction = isUser.transactions.find(
             transc => transc.id === idT
         );
-        if (!isTransaction) {
-            return response
-                .status(404)
-                .json({ message: 'Transaction does not exist' });
-        }
+
         return response.status(200).json(isTransaction);
     }
 
@@ -75,20 +61,9 @@ class TransactionController {
         const { title, value, type } = request.body;
 
         const isUser = users.find(user => user.id === id);
-        if (!isUser) {
-            return response
-                .status(404)
-                .json({ message: 'User does not exist' });
-        }
-
         const isTransaction = isUser.transactions.find(
             transc => transc.id === idT
         );
-        if (!isTransaction) {
-            return response
-                .status(404)
-                .json({ message: 'Transaction does not exist' });
-        }
         isTransaction.title = title;
         isTransaction.value = value;
         isTransaction.type = type;
@@ -100,12 +75,6 @@ class TransactionController {
         const { id, idT } = request.params;
 
         const isUser = users.find(user => user.id === id);
-
-        if (!isUser) {
-            return response
-                .status(404)
-                .json({ message: 'User does not exist' });
-        }
 
         const indexTransaction = isUser.transactions.findIndex(
             transc => transc.id === idT
