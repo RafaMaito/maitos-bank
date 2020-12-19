@@ -7,7 +7,9 @@ import logRequestsMiddleware from './app/middleWares/logRequests';
 import validateUserTransactionIdMiddleware from './app/middleWares/valideteUserTransactionId';
 import verifyParamsTransactionMiddleware from './app/middleWares/verifyParamsTransaction';
 import verifyParamsUserMiddleware from './app/middleWares/verifyParamsUser';
+import verifyParamsLoginMiddleware from './app/middleWares/verifyParamsLogin';
 import verifyUserMiddleware from './app/middleWares/verifyUser';
+import verifyLoginMiddleware from './app/middleWares/verifyLogin';
 import verifyTransactionMiddleware from './app/middleWares/verifyTransaction';
 
 const routes = new Router();
@@ -17,8 +19,19 @@ routes.use('/users/:id', validateUserTransactionIdMiddleware);
 routes.use('/user/:id/transactions/:id', validateUserTransactionIdMiddleware);
 
 routes.post('/users', verifyParamsUserMiddleware, UserController.store);
+routes.post(
+    '/users/:id/login',
+    [verifyUserMiddleware, verifyParamsLoginMiddleware],
+    UserController.login
+);
 
 routes.get('/users/:id', verifyUserMiddleware, UserController.show);
+routes.get(
+    '/users/:id/login',
+    [verifyUserMiddleware, verifyParamsLoginMiddleware, verifyLoginMiddleware],
+    UserController.doLogin
+);
+// verifyLoginUserMiddleware,
 
 routes.get('/users', UserController.index);
 

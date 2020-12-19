@@ -9,5 +9,5 @@ export default (request, response, next) => {
             .status(404)
             .json({ message: 'Transaction does not exist' });
     }
-    next();
+    return next();
 };

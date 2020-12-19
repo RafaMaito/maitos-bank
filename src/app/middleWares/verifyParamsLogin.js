@@ -1,10 +1,11 @@
 export default (request, response, next) => {
-    const { name, age, email, cpf } = request.body;
+    const { email, password } = request.body;
 
-    if (!name || !age || !cpf || !email) {
+    if (!email || !password) {
         return response
             .status(409)
             .json({ message: 'Please, fill all fields' });
     }
+
     return next();
 };

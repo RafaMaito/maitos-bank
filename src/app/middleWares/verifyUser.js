@@ -7,5 +7,5 @@ export default (request, response, next) => {
         return response.status(404).json({ error: 'User does not exist' });
     }
 
-    next();
+    return next();
 };

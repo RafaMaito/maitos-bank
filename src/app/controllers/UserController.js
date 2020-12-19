@@ -7,7 +7,6 @@ class UserController {
         if (users.length < 1) {
             return response.status(404).json({ error: `There are no users` });
         }
-        // Cria um novo array com um novo objeto criado dentro do Map()
         const newUsers = users.map(user => {
             const newUser = {
                 id: user.id,
@@ -70,15 +69,30 @@ class UserController {
         const { id } = request.params;
         const searchId = users.findIndex(user => user.id === id);
 
-        if (searchId < 0) {
-            return response
-                .status(404)
-                .json({ message: 'User does not exist' });
-        }
         users.splice(searchId, 1);
         return response
             .status(200)
             .json({ message: 'The user has been removed' });
+    }
+
+    login(request, response) {
+        const { id } = request.params;
+        const { password } = request.body;
+        const isUser = users.find(user => user.id === id);
+        isUser.password = password;
+        return response.json({ message: 'Password has been created' });
+    }
+
+    doLogin(request, response) {
+        const { id } = request.params;
+        const isUser = users.find(user => user.id === id);
+        return response.json({
+            id: isUser.id,
+            name: isUser.name,
+            cpf: isUser.cpf,
+            email: isUser.email,
+            age: isUser.age,
+        });
     }
 }
 

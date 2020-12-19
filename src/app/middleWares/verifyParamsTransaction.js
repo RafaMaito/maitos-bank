@@ -13,5 +13,5 @@ export default (request, response, next) => {
             .json({ message: 'This operation does not exist' });
     }
 
-    next();
+    return next();
 };
